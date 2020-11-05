@@ -10,9 +10,10 @@ Choose function:
 5) Get auction item data
 6) Get player auction data
 7) Get game count data
+8) Get player last login
 
 Press 0 + Enter to quit
-Press 1 to 7 + Enter to use function
+Press 1 to 8 + Enter to use function
 
 Input:
 Username - Username in minecraft -> Ken980, hypixel, notch, etc.
