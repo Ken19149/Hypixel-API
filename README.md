@@ -11,6 +11,7 @@ Choose function:
 6) Get player auction data
 7) Get game count data
 8) Get player last login
+9) Get player count online
 
 Press 0 + Enter to quit
 Press 1 to 8 + Enter to use function
