@@ -38,7 +38,7 @@ api_gamecounts = "http://api.hypixel.net/gameCounts?key="+ key
 key = input("API Key: ")
 
 while True:
-    api_function = input("Choose function:\n0) Quit\n1) Get key data\n2) Get player data from username\n3) Get player from UUID\n4) Get friends UUID\n5) Get auction item data\n6) Get player auction data\n7) Get game count data\n8) Get player last login\n")
+    api_function = input("Choose function:\n0) Quit\n1) Get key data\n2) Get player data from username\n3) Get player from UUID\n4) Get friends UUID\n5) Get auction item data\n6) Get player auction data\n7) Get game count data\n8) Get player last login\n9) Get player count online\n")
     if api_function == "1":
         key_api_function = input("API Key: ")
         api_key = "http://api.hypixel.net/key?key=" + key_api_function
@@ -87,6 +87,9 @@ while True:
             print("Success")
         else:
             print("Error")
+    elif api_function == "9":
+        api_player_count = "http://api.hypixel.net/playerCount?key=" + key
+        api(api_player_count, True)
     elif api_function == "0":
         break
     else:
