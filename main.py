@@ -38,7 +38,7 @@ api_gamecounts = "http://api.hypixel.net/gameCounts?key="+ key
 key = input("API Key: ")
 
 while True:
-    api_function = input("Choose function:\n0) Quit\n1) Get key data\n2) Get player data from username\n3) Get player from UUID\n4) Get friends UUID\n5) Get auction item data\n6) Get player auction data\n7) Get game count data\n8) Get player last login\n9) Get player count online\n")
+    api_function = input("Choose function:\n0) Quit\n1) Get key data\n2) Get player data from username\n3) Get player from UUID\n4) Get friends UUID\n5) Get auction item data\n6) Get player auction data\n7) Get game count data\n8) Get player last seen\n9) Get player count online\n")
     if api_function == "1":
         key_api_function = input("API Key: ")
         api_key = "http://api.hypixel.net/key?key=" + key_api_function
@@ -71,17 +71,27 @@ while True:
         api_name = "http://api.hypixel.net/player?key=" + key + "&name=" + name
         response = requests.get(api_name)
         try:
+            last_login = response.json()["player"]["lastLogin"]
             last_logout = response.json()["player"]["lastLogout"]
         except:
             print("Username invalid")
             continue
-        unix_timestamp = last_logout / 1000
 
-        utc_time = time.gmtime(unix_timestamp)
-        local_time = time.localtime(unix_timestamp)
+        unix_timestamp_login = last_login / 1000
+        unix_timestamp_logout = last_logout / 1000
 
-        print(time.strftime("%Y-%m-%d %H:%M:%S", local_time))
-        print(time.strftime("%Y-%m-%d %H:%M:%S+00:00 (UTC)", utc_time))
+        utc_time_login = time.gmtime(unix_timestamp_login)
+        local_time_login = time.localtime(unix_timestamp_login)
+
+        utc_time_logout = time.gmtime(unix_timestamp_logout)
+        local_time_logout = time.localtime(unix_timestamp_logout)
+
+        print("Last seen(local time): from " + time.strftime("%Y-%m-%d %H:%M:%S",
+                                                             local_time_login) + " to " + time.strftime(
+            "%Y-%m-%d %H:%M:%S", local_time_logout))
+        print(
+            "Last seen(UTC): from " + time.strftime("%Y-%m-%d %H:%M:%S (UTC)", utc_time_login) + " to " + time.strftime(
+                "%Y-%m-%d %H:%M:%S (UTC)", utc_time_logout))
 
         if response.status_code == 200:
             print("Success")
