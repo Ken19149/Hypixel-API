@@ -74,7 +74,7 @@ while True:
             last_login = response.json()["player"]["lastLogin"]
             last_logout = response.json()["player"]["lastLogout"]
         except:
-            print("Username invalid")
+            print("Error")
             continue
 
         unix_timestamp_login = last_login / 1000
@@ -86,10 +86,13 @@ while True:
         utc_time_logout = time.gmtime(unix_timestamp_logout)
         local_time_logout = time.localtime(unix_timestamp_logout)
 
-        print("Last seen(local time): from " + time.strftime("%Y-%m-%d %H:%M:%S",
+        if unix_timestamp_login > unix_timestamp_logout:
+            print(name, "is online.")
+        elif unix_timestamp_login < unix_timestamp_logout:
+            print("Last seen(local time): from " + time.strftime("%Y-%m-%d %H:%M:%S",
                                                              local_time_login) + " to " + time.strftime(
             "%Y-%m-%d %H:%M:%S", local_time_logout))
-        print(
+            print(
             "Last seen(UTC): from " + time.strftime("%Y-%m-%d %H:%M:%S (UTC)", utc_time_login) + " to " + time.strftime(
                 "%Y-%m-%d %H:%M:%S (UTC)", utc_time_logout))
 
