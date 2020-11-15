@@ -12,6 +12,7 @@ Choose function:
 7) Get game count data
 8) Get player last seen
 9) Get player count online
+10) Get latest skyblock news
 
 Press 0 + Enter to quit
 Press 1 to 8 + Enter to use function
