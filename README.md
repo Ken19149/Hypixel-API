@@ -25,5 +25,5 @@ Key - API key (go to hypixel type /api new) -> 12345abc-2020-4567-09af-abcdef012
 Pages - Number of pages in auction (1 page = 1000 items) -> int >= 0
 
 Web
-localhost:5000/player/stats/<username>
+localhost:5000/player/stats/username
 
