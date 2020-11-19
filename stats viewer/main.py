@@ -6,7 +6,7 @@ import time
 
 app = Flask(__name__)
 
-key = "17104bc5-2957-4562-a50f-a2b28f5c0828"
+key = ""
 url = "http://api.hypixel.net/player?key="
 
 def format_server_time():
