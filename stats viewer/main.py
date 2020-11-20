@@ -1,13 +1,25 @@
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template, request, sessions
 import requests
 import json
 import os
 import time
+from datetime import timedelta
 
 app = Flask(__name__)
+app.secret_key = "123"
+app.permanent_session_lifetime = timedelta(days=7)
 
 key = ""
 url = "http://api.hypixel.net/player?key="
+
+def isPlayerExist(username):
+    response = requests.get(url + key + "&name=" + username)
+    if response.json()["success"] == True and response.json()["player"] == None:
+        return False
+    elif response.json()["success"] == True and response.json()["player"] != None:
+        return True
+    else:
+        return False
 
 def format_server_time():
     server_time = time.localtime()
@@ -16,7 +28,7 @@ def format_server_time():
 @app.route("/", methods = ["POST", "GET"])
 def home():
     context = {"server_time": format_server_time()}
-    if request.method == "POST":
+    if request.method == "POST" and request.form["username"] != "" and isPlayerExist(request.form["username"]):
         username = request.form["username"]
         return redirect(url_for("stats", username=username))
     else:
@@ -25,7 +37,7 @@ def home():
 @app.route("/player/stats/<username>", methods = ["POST", "GET"])
 def stats(username):
     context = {"server_time": format_server_time()}
-    if request.method == "POST":
+    if request.method == "POST" and request.form["username"] != "" and isPlayerExist(request.form["username"]):
         username = request.form["username"]
         return redirect(url_for("stats", username=username))
     elif username != None:
